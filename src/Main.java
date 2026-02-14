@@ -9,6 +9,7 @@ public class Main {
 
         ContaRepository repository = new ArchiveAccountRepository();
         BancoService bank = new BancoService(repository);
+        ContaService contaService = new ContaService;
 
         int option;
 
@@ -53,7 +54,8 @@ public class Main {
                     System.out.println("Value: ");
                     double value = sc.nextDouble();
 
-                    bank.searchAccount(number).deposit(value);
+                    Account account = bank.searchAccount(number);
+                    accountService.deposit(account, value);
 
                     System.out.println("Depósito realizado");
                 }
