@@ -2,7 +2,13 @@
 
 public class BancoService {
 
-    private Map<String, account> accounts = new HashMap<>();
+    private final ContaRepository repository;
+    private Map<String, Account> accounts;
+
+    public BancoService(ContaRepository repository) {
+        this.repository = repository;
+        this.accounts = repository.load();
+    }
 
     public void createAccounts(account account) {
         contas.put(account.getNumero(), account);
