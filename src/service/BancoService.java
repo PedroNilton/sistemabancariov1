@@ -31,4 +31,8 @@ public class BancoService {
         accountDestination.deposit(value);
 
     }
+
+    public void saveData {
+        repository.save(accounts);
+    }
 }

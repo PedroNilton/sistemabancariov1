@@ -13,4 +13,8 @@ public abstract class Conta {
         balance += value;
         extract.add(new Transaction("DEPOSIT", value));
     }
+
+    public void setInitialBalance (double value) {
+        this.value = value;
+    }
 }

@@ -6,7 +6,9 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        BancoService bank = new BancoService();
+
+        ContaRepository repository = new ArchiveAccountRepository();
+        BancoService bank = new BancoService(repository);
 
         int option;
 
@@ -15,14 +17,19 @@ public class Main {
             System.out.println("2 - Depositar");
             System.out.println("3 - Sacar");
             System.out.println("4 - Transferir");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Dados");
+            System.out.println("6 - Sair");
             System.out.println("Escolha: ");
+
+            option = sc.nextInt();
 
             switch(option) {
 
                 case 1 -> {
-                    System.out.println("Name: ");
+
                     sc.nextLine();
+
+                    System.out.println("Name: ");
                     String name = sc.nextLine();
 
                     System.out.println("CPF: ");
@@ -44,7 +51,7 @@ public class Main {
                     String number = sc.next();
 
                     System.out.println("Value: ");
-                    String value = sc.nextDouble();
+                    double value = sc.nextDouble();
 
                     bank.searchAccount(number).deposit(value);
 
@@ -56,7 +63,7 @@ public class Main {
                     String number = sc.next();
 
                     System.out.println("Value: ");
-                    String value = sc.nextDouble();
+                    double value = sc.nextDouble();
 
                     bank.searchAccount(number).withdraw(value);
 
@@ -78,11 +85,16 @@ public class Main {
                     System.out.println("Transferencia realizada com sucesso!");
                 }
 
-                case 5 -> System.out.println("Encerrando. . . ");
+                case 5 -> {
+                    bank.saveData();
+                    System.out.println("Data salvo com sucesso!");
+
+                }
+                case 6 -> System.out.println("Encerrando. . . ");
 
                 default -> System.out.println("Opção inválida");
                 }
 
-            } while (option != 5);
-        }
+                }
+            } while (option != 6);
     }

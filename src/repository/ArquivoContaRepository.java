@@ -11,9 +11,9 @@ public class ArquivoContaRepository implements ContaRepository {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nameArquivo))) {
 
             for (Account account : accounts.values()) {
-                writer.write(account.getNumber() + ; +
-                             account.getClient.getName() + ; +
-                             account.getClient.getCpf() + ; +
+                writer.write(account.getNumber() + ";" +
+                             account.getClient().getName() + ; +
+                             account.getClient().getCpf() + ; +
                              account.getBalance());
                 writer.newLine();
             }
