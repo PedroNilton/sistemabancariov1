@@ -1,4 +1,8 @@
 
+import model.*;
+import repository.*;
+import serviceo.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -7,9 +11,9 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        ContaRepository repository = new ArchiveAccountRepository();
+        ContaRepository repository = new ArquivoContaRepository();
         BancoService bank = new BancoService(repository);
-        ContaService contaService = new ContaService;
+        ContaService contaService = new ContaService();
 
         int option;
 
@@ -55,7 +59,7 @@ public class Main {
                     double value = sc.nextDouble();
 
                     Account account = bank.searchAccount(number);
-                    accountService.deposit(account, value);
+                    contaService.deposit(account, value);
 
                     System.out.println("Depósito realizado");
                 }
@@ -74,7 +78,7 @@ public class Main {
 
                 case 4 -> {
                     System.out.println("Origin account: ");
-                    String number = sc.next();
+                    String origin = sc.next();
 
                     System.out.println("Origin destination: ");
                     String destination = sc.next();
@@ -97,6 +101,6 @@ public class Main {
                 default -> System.out.println("Opção inválida");
                 }
 
-                }
-            } while (option != 6);
+        } while (option != 6);
     }
+}

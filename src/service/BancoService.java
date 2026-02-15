@@ -1,4 +1,10 @@
+package service;
 
+import model.Account;
+import repository.ContaRepository;
+import exception.ContaNaoEncontradaException;
+
+import java.util.Map;
 
 public class BancoService {
 
@@ -10,19 +16,19 @@ public class BancoService {
         this.accounts = repository.load();
     }
 
-    public void createAccounts(account account) {
-        contas.put(account.getNumero(), account);
+    public void createAccounts(Account account) {
+        accounts.put(account.getNumero(), account);
     }
 
-    public account searchAccount(Stirng numero) {
+    public Account searchAccount(Stirng numero) {
         Account account = accounts.get(numero);
         if (account == null) {
-            throw new AccountNotFoundException();
+            throw new ContaNaoEncontradaException("Conta não encontrada");
         }
         return account;
     }
 
-    public void tranfer(String origin, String destination, double value) {
+    public void transfer(String origin, String destination, double value) {
 
         Account accountOrigin = searchAccount(origin);
         Account accountDestination = searchAccount(destination);
@@ -32,7 +38,7 @@ public class BancoService {
 
     }
 
-    public void saveData {
+    public void saveData() {
         repository.save(accounts);
     }
 }

@@ -1,12 +1,14 @@
+package model;
 
+import java.time.LocalDateTime;
 
-public class Transaction {
+public class Transacao {
 
     private String tipo;
     private double value;
     private LocalDateTime data;
 
-    public Transaction(String tipo, double value) {
+    public Transacao(String tipo, double value) {
         this.tipo = tipo;
         this.value = value;
         this.data = LocalDateTime.now();
