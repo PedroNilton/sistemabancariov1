@@ -1,13 +1,17 @@
+package model;
 
+import exception.SaldoInsuficienteException;
 
-public abstract ContaCorrente extends Conta {
+public class ContaCorrente extends Conta {
 
     @Override
-    public void withdraw(double value) {
-        if (value > balance) {
-            throw new BalanceInsufficientException
+    public void sacar(double valor) {
+
+        if (valor > saldo) {
+            throw new SaldoInsuficienteException("Saldo insuficiente.");
         }
-        balance -= value;
-        extract.add(new Transaction("WITHDRAW", value));
+
+        saldo -= valor;
+        extrato.add(new Transacao("SAQUE", valor));
     }
 }
