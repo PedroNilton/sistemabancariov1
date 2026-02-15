@@ -1,22 +1,28 @@
+package repository;
+
+import model.Cliente;
+import model.Conta;
+import model.ContaCorrente;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ArquivoContaRepository implements ContaRepository {
 
-    private final String nomeArquivo = "conta.txt";
+    private final String nomeArquivo = "contas.txt";
 
     @Override
-    public void save(Map<String, Account> accounts) {
+    public void salvar(Map<String, Conta> contas) {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
 
-            for (Account account : accounts.values()) {
+            for (Conta conta : contas.values()) {
 
-                writer.write(account.getNumber() + ";" +
-                        account.getClient().getName() + ";" +
-                        account.getClient().getCpf() + ";" +
-                        account.getBalance());
+                writer.write(conta.getNumero() + ";" +
+                        conta.getCliente().getNome() + ";" +
+                        conta.getCliente().getCpf() + ";" +
+                        conta.getSaldo());
 
                 writer.newLine();
             }
@@ -27,35 +33,35 @@ public class ArquivoContaRepository implements ContaRepository {
     }
 
     @Override
-    public Map<String, Account> load() {
+    public Map<String, Conta> carregar() {
 
-        Map<String, Account> accounts = new HashMap<>();
+        Map<String, Conta> contas = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
 
-            String line;
+            String linha;
 
-            while ((line = reader.readLine()) != null) {
+            while ((linha = reader.readLine()) != null) {
 
-                String[] parts = line.split(";");
+                String[] partes = linha.split(";");
 
-                String number = parts[0];
-                String name = parts[1];
-                String cpf = parts[2];
-                double balance = Double.parseDouble(parts[3]);
+                String numero = partes[0];
+                String nome = partes[1];
+                String cpf = partes[2];
+                double saldo = Double.parseDouble(partes[3]);
 
-                Client client = new Client(name, cpf);
-                Account account = new CurrentAccount(number, client);
+                Cliente cliente = new Cliente(nome, cpf);
+                Conta conta = new ContaCorrente(numero, cliente);
 
-                account.setInitialBalance(balance);
+                conta.definirSaldoInicial(saldo);
 
-                accounts.put(number, account);
+                contas.put(numero, conta);
             }
 
         } catch (IOException e) {
             System.out.println("Arquivo ainda não existe.");
         }
 
-        return accounts;
+        return contas;
     }
 }

@@ -1,17 +1,17 @@
-
+package model;
 
 public class Cliente {
 
-    private String name;
+    private String nome;
     private String cpf;
 
-    public Cliente(String name, String cpf) {
-        this.name = name;
+    public Cliente(String nome, String cpf) {
+        this.nome = nome;
         this.cpf = cpf;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public String getCpf() {

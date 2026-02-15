@@ -1,8 +1,8 @@
+package exception;
 
+public class SaldoInsuficienteException extends RuntimeException {
 
-public  class SaldoInsuficienteException extends RuntimeException {
-
-    public  SaldoInsuficienteException(String message){
-        super(message);
+    public SaldoInsuficienteException(String mensagem) {
+        super(mensagem);
     }
 }

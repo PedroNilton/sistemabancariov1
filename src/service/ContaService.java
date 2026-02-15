@@ -1,16 +1,18 @@
+package service;
 
+import model.Conta;
 
 public class ContaService {
 
-    public void deposit(Account account, double value) {
-        account.deposit(value);
+    public void depositar(Conta conta, double valor) {
+        conta.depositar(valor);
     }
 
-    public void withdraw(Account account, double value) {
-        account.withdraw(value);
+    public void sacar(Conta conta, double valor) {
+        conta.sacar(valor);
     }
 
-    public void statement(Account account) {
-        account.printStatement();
+    public void extrato(Conta conta) {
+        conta.imprimirExtrato();
     }
 }

@@ -1,6 +1,6 @@
 package service;
 
-import model.Account;
+import model.Conta;
 import repository.ContaRepository;
 import exception.ContaNaoEncontradaException;
 
@@ -9,36 +9,38 @@ import java.util.Map;
 public class BancoService {
 
     private final ContaRepository repository;
-    private Map<String, Account> accounts;
+    private Map<String, Conta> contas;
 
     public BancoService(ContaRepository repository) {
         this.repository = repository;
-        this.accounts = repository.load();
+        this.contas = repository.carregar();
     }
 
-    public void createAccounts(Account account) {
-        accounts.put(account.getNumero(), account);
+    public void criarConta(Conta conta) {
+        contas.put(conta.getNumero(), conta);
     }
 
-    public Account searchAccount(Stirng numero) {
-        Account account = accounts.get(numero);
-        if (account == null) {
-            throw new ContaNaoEncontradaException("Conta não encontrada");
+    public Conta buscarConta(String numero) {
+
+        Conta conta = contas.get(numero);
+
+        if (conta == null) {
+            throw new ContaNaoEncontradaException("Conta não encontrada.");
         }
-        return account;
+
+        return conta;
     }
 
-    public void transfer(String origin, String destination, double value) {
+    public void transferir(String origem, String destino, double valor) {
 
-        Account accountOrigin = searchAccount(origin);
-        Account accountDestination = searchAccount(destination);
+        Conta contaOrigem = buscarConta(origem);
+        Conta contaDestino = buscarConta(destino);
 
-        accountOrigin.withdraw(value);
-        accountDestination.deposit(value);
-
+        contaOrigem.sacar(valor);
+        contaDestino.depositar(valor);
     }
 
-    public void saveData() {
-        repository.save(accounts);
+    public void salvarDados() {
+        repository.salvar(contas);
     }
 }

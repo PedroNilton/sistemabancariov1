@@ -1,7 +1,6 @@
-
 import model.*;
 import repository.*;
-import serviceo.*;
+import service.*;
 
 import java.util.Scanner;
 
@@ -12,95 +11,100 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         ContaRepository repository = new ArquivoContaRepository();
-        BancoService bank = new BancoService(repository);
+        BancoService bancoService = new BancoService(repository);
         ContaService contaService = new ContaService();
 
-        int option;
+        int opcao;
 
         do {
             System.out.println("\n1 - Criar Conta");
             System.out.println("2 - Depositar");
             System.out.println("3 - Sacar");
             System.out.println("4 - Transferir");
-            System.out.println("5 - Dados");
+            System.out.println("5 - Salvar Dados");
             System.out.println("6 - Sair");
-            System.out.println("Escolha: ");
+            System.out.print("Escolha: ");
 
-            option = sc.nextInt();
+            opcao = sc.nextInt();
 
-            switch(option) {
+            switch (opcao) {
 
                 case 1 -> {
-
                     sc.nextLine();
 
-                    System.out.println("Name: ");
-                    String name = sc.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = sc.nextLine();
 
-                    System.out.println("CPF: ");
+                    System.out.print("CPF: ");
                     String cpf = sc.nextLine();
 
-                    System.out.println("Number account: ");
-                    String number = sc.nextLine();
+                    System.out.print("Número da conta: ");
+                    String numero = sc.nextLine();
 
-                    Client client = new Client(name, cpf);
-                    Account account = new CurrentAccount(number, client);
+                    Cliente cliente = new Cliente(nome, cpf);
+                    Conta conta = new ContaCorrente(numero, cliente);
 
-                    bank.createAccount(account);
+                    bancoService.criarConta(conta);
 
-                    System.out.println("Conta Criada com sucesso!");
+                    System.out.println("Conta criada com sucesso!");
                 }
 
                 case 2 -> {
-                    System.out.println("Number account: ");
-                    String number = sc.next();
+                    System.out.print("Número da conta: ");
+                    String numero = sc.next();
 
-                    System.out.println("Value: ");
-                    double value = sc.nextDouble();
+                    System.out.print("Valor: ");
+                    double valor = sc.nextDouble();
 
-                    Account account = bank.searchAccount(number);
-                    contaService.deposit(account, value);
+                    Conta conta = bancoService.buscarConta(numero);
+                    contaService.depositar(conta, valor);
 
-                    System.out.println("Depósito realizado");
+                    System.out.println("Depósito realizado!");
                 }
 
                 case 3 -> {
-                    System.out.println("Number account: ");
-                    String number = sc.next();
+                    System.out.print("Número da conta: ");
+                    String numero = sc.next();
 
-                    System.out.println("Value: ");
-                    double value = sc.nextDouble();
+                    System.out.print("Valor: ");
+                    double valor = sc.nextDouble();
 
-                    bank.searchAccount(number).withdraw(value);
+                    Conta conta = bancoService.buscarConta(numero);
+                    contaService.sacar(conta, valor);
 
                     System.out.println("Saque realizado!");
                 }
 
                 case 4 -> {
-                    System.out.println("Origin account: ");
-                    String origin = sc.next();
+                    System.out.print("Conta origem: ");
+                    String origem = sc.next();
 
-                    System.out.println("Origin destination: ");
-                    String destination = sc.next();
+                    System.out.print("Conta destino: ");
+                    String destino = sc.next();
 
-                    System.out.println("Value: ");
-                    double value = sc.nextDouble();
+                    System.out.print("Valor: ");
+                    double valor = sc.nextDouble();
 
-                    bank.transfer(origin, destination, value);
+                    bancoService.transferir(origem, destino, valor);
 
-                    System.out.println("Transferencia realizada com sucesso!");
+                    System.out.println("Transferência realizada com sucesso!");
                 }
 
                 case 5 -> {
-                    bank.saveData();
-                    System.out.println("Data salvo com sucesso!");
-
-                }
-                case 6 -> System.out.println("Encerrando. . . ");
-
-                default -> System.out.println("Opção inválida");
+                    bancoService.salvarDados();
+                    System.out.println("Dados salvos com sucesso!");
                 }
 
-        } while (option != 6);
+                case 6 -> {
+                    bancoService.salvarDados();
+                    System.out.println("Encerrando...");
+                }
+
+                default -> System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 6);
+
+        sc.close();
     }
 }

@@ -5,12 +5,29 @@ import java.time.LocalDateTime;
 public class Transacao {
 
     private String tipo;
-    private double value;
+    private double valor;
     private LocalDateTime data;
 
-    public Transacao(String tipo, double value) {
+    public Transacao(String tipo, double valor) {
         this.tipo = tipo;
-        this.value = value;
+        this.valor = valor;
         this.data = LocalDateTime.now();
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return data + " - " + tipo + " - R$ " + valor;
     }
 }

@@ -1,12 +1,11 @@
-
 package repository;
 
 import java.util.Map;
-import model.Account;
+import model.Conta;
 
 public interface ContaRepository {
 
-    void save (Map<String, Account> acounts);
+    void salvar(Map<String, Conta> contas);
 
-    Map<String, Account> load();
+    Map<String, Conta> carregar();
 }
