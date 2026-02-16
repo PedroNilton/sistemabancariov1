@@ -19,6 +19,11 @@ public abstract class Conta {
     public abstract void sacar(double valor);
 
     public void depositar(double valor) {
+
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor inválido.");
+        }
+
         saldo += valor;
         extrato.add(new Transacao("DEPÓSITO", valor));
     }
