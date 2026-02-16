@@ -21,8 +21,9 @@ public class Main {
             System.out.println("2 - Depositar");
             System.out.println("3 - Sacar");
             System.out.println("4 - Transferir");
-            System.out.println("5 - Salvar Dados");
-            System.out.println("6 - Sair");
+            System.out.println("5 - Ver Extrato");
+            System.out.println("6 - Salvar Dados");
+            System.out.println("7 - Sair");
             System.out.print("Escolha: ");
 
             opcao = sc.nextInt();
@@ -94,11 +95,23 @@ public class Main {
                 }
 
                 case 5 -> {
+                    System.out.println("Número da conta: ");
+                    String numero = sc.next();
+
+                    try {
+                        Conta conta = bancoService.buscarConta(numero);
+                        contaService.extrato(conta);
+                    } catch (Exception e) {
+                        System.out.println("Erro: " + e.getMessage());
+                    }
+                }
+
+                case 6 -> {
                     bancoService.salvarDados();
                     System.out.println("Dados salvos com sucesso!");
                 }
 
-                case 6 -> {
+                case 7 -> {
                     bancoService.salvarDados();
                     System.out.println("Encerrando...");
                 }
@@ -106,7 +119,7 @@ public class Main {
                 default -> System.out.println("Opção inválida!");
             }
 
-        } while (opcao != 6);
+        } while (opcao != 7);
 
         sc.close();
     }
