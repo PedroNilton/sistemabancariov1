@@ -1,3 +1,5 @@
+import exception.ContaNaoEncontradaException;
+import exception.SaldoInsuficienteException;
 import model.*;
 import repository.*;
 import service.*;
@@ -64,18 +66,24 @@ public class Main {
                 }
 
                 case 3 -> {
-                    System.out.print("Número da conta: ");
-                    String numero = sc.next();
-
-                    System.out.print("Valor: ");
-                    double valor = sc.nextDouble();
 
                     try {
+                        System.out.print("Número da conta: ");
+                        String numero = sc.next();
+
+                        System.out.print("Valor: ");
+                        double valor = sc.nextDouble();
+
                         Conta conta = bancoService.buscarConta(numero);
                         contaService.sacar(conta, valor);
+
                         System.out.println("Saque realizado!");
-                    } catch (Exception e) {
-                        System.out.println("Erro: " + e.getMessage());
+                    } catch (SaldoInsuficienteException e) {
+                        System.out.println("Saldo insuficiente!");
+                    } catch (ContaNaoEncontradaException e) {
+                        System.out.println("Conta não encontrada!");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
 
