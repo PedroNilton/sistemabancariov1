@@ -69,10 +69,13 @@ public class Main {
                     System.out.print("Valor: ");
                     double valor = sc.nextDouble();
 
-                    Conta conta = bancoService.buscarConta(numero);
-                    contaService.sacar(conta, valor);
-
-                    System.out.println("Saque realizado!");
+                    try {
+                        Conta conta = bancoService.buscarConta(numero);
+                        contaService.sacar(conta, valor);
+                        System.out.println("Saque realizado!");
+                    } catch (Exception e) {
+                        System.out.println("Erro: " + e.getMessage());
+                    }
                 }
 
                 case 4 -> {
