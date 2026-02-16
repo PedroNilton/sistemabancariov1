@@ -11,6 +11,10 @@ public class ContaCorrente extends Conta {
     @Override
     public void sacar(double valor) {
 
+        if (valor <= saldo) {
+            throw new SaldoInsuficienteException("Valor deve ser maior que zero.");
+        }
+
         if (valor > saldo) {
             throw new SaldoInsuficienteException("Saldo insuficiente.");
         }
