@@ -53,6 +53,8 @@ public class Main {
                 }
 
                 case 2 -> {
+                    try {
+
                     System.out.print("Número da conta: ");
                     String numero = sc.next();
 
@@ -63,7 +65,13 @@ public class Main {
                     contaService.depositar(conta, valor);
 
                     System.out.println("Depósito realizado!");
+
+                } catch (ContaNaoEncontradaException e) {
+                    System.out.println("Conta não encontrada!");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
                 }
+            }
 
                 case 3 -> {
 
