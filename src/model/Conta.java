@@ -8,13 +8,12 @@ public abstract class Conta {
     protected String numero;
     protected Cliente cliente;
     protected double saldo;
-    protected List<Transacao> extrato;
+    protected List<Transacao> extrato = new ArrayList<>();
 
     public Conta(String numero, Cliente cliente) {
         this.numero = numero;
         this.cliente = cliente;
         this.saldo = 0.0;
-        this.extrato = new ArrayList<>();
     }
 
     public abstract void sacar(double valor);
@@ -29,7 +28,11 @@ public abstract class Conta {
     }
 
     public void imprimirExtrato() {
-        System.out.println("\n=== EXTRATO ===");
+        System.out.println("\n=== EXTRATO ===" + numero + " ===");
+        System.out.println("Titular: " + cliente.getNome());
+        System.out.println("Saldo atual: " + saldo);
+        System.out.println("Transações: ");
+
         for (Transacao t : extrato) {
             System.out.println(t);
         }
