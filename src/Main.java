@@ -96,18 +96,27 @@ public class Main {
                 }
 
                 case 4 -> {
-                    System.out.print("Conta origem: ");
-                    String origem = sc.next();
 
-                    System.out.print("Conta destino: ");
-                    String destino = sc.next();
+                    try {
+                        System.out.print("Conta origem: ");
+                        String origem = sc.next();
 
-                    System.out.print("Valor: ");
-                    double valor = sc.nextDouble();
+                        System.out.print("Conta destino: ");
+                        String destino = sc.next();
 
-                    bancoService.transferir(origem, destino, valor);
+                        System.out.print("Valor: ");
+                        double valor = sc.nextDouble();
 
-                    System.out.println("Transferência realizada com sucesso!");
+                        bancoService.transferir(origem, destino, valor);
+
+                        System.out.println("Transferência realizada com sucesso!");
+                    } catch (ContaNaoEncontradaException e) {
+                        System.out.println("Conta não encontrada!");
+                    } catch (SaldoInsuficienteException e) {
+                        System.out.println("Saldo insuficiente!");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 case 5 -> {
