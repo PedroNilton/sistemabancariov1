@@ -62,6 +62,20 @@ public class BancoService {
         contaDestino.depositar(valor);
     }
 
+    public void listarContas() {
+
+        if (contas.isEmpty()) {
+            System.out.println("Nenhuma conta cadastrada");
+            return;
+        }
+
+        contas.values().forEach(conta -> {
+            System.out.println("Conta: " + conta.getNumero());
+            System.out.println("Titular: " + conta.getCliente().getNome());
+            System.out.println("Saldo: R$ " + conta.getSaldo());
+        });
+    }
+
     public void salvarDados() {
         repository.salvar(contas);
     }
