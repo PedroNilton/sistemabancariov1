@@ -1,6 +1,8 @@
 package service;
 
+import model.Cliente;
 import model.Conta;
+import model.ContaCorrente;
 import repository.ContaRepository;
 import exception.ContaNaoEncontradaException;
 
@@ -16,8 +18,18 @@ public class BancoService {
         this.contas = repository.carregar();
     }
 
-    public void criarConta(Conta conta) {
-        contas.put(conta.getNumero(), conta);
+    public Conta criarConta(Cliente cliente) {
+
+        if (cpfJaExiste(cliente.getCpf())) {
+            throw new IllegalArgumentException("CPF já cadastrado.");
+        }
+
+        String numero = String.valueOf(sequencia++);
+        Conta conta = new ContaCorrente(numero, cliente);
+
+        contas.put(numero, conta);
+
+        return conta;
     }
 
     public Conta buscarConta(String numero) {
@@ -31,13 +43,17 @@ public class BancoService {
         return conta;
     }
 
-    public boolean CpfJaExiste(String cpf) {
+    public boolean cpfJaExiste(String cpf) {
         return contas.values()
                 .stream()
                 .anyMatch(conta -> conta.getCliente().getCpf().equals(cpf));
     }
 
     public void transferir(String origem, String destino, double valor) {
+
+        if (origem.equals(destino)) {
+            throw new IllegalArgumentException("Conta de origem e destino não podem ser iguais.");
+        }
 
         Conta contaOrigem = buscarConta(origem);
         Conta contaDestino = buscarConta(destino);
