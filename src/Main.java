@@ -12,6 +12,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
+        //cria as dependências
         ContaRepository repository = new ArquivoContaRepository();
         BancoService bancoService = new BancoService(repository);
         ContaService contaService = new ContaService();

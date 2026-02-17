@@ -31,6 +31,12 @@ public class BancoService {
         return conta;
     }
 
+    public boolean CpfJaExiste(String cpf) {
+        return contas.values()
+                .stream()
+                .anyMatch(conta -> conta.getCliente().getCpf().equals(cpf));
+    }
+
     public void transferir(String origem, String destino, double valor) {
 
         Conta contaOrigem = buscarConta(origem);
