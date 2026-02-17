@@ -33,24 +33,28 @@ public class Main {
 
             switch (opcao) {
 
-                case 1 -> {
-                    sc.nextLine();
+                    case 1 -> {
+                        try {
+                        sc.nextLine();
 
-                    System.out.print("Nome: ");
-                    String nome = sc.nextLine();
+                        System.out.print("Nome: ");
+                        String nome = sc.nextLine();
 
-                    System.out.print("CPF: ");
-                    String cpf = sc.nextLine();
+                        System.out.print("CPF: ");
+                        String cpf = sc.nextLine();
 
-                    System.out.print("Número da conta: ");
-                    String numero = sc.nextLine();
+                        System.out.print("Número da conta: ");
+                        String numero = sc.nextLine();
 
-                    Cliente cliente = new Cliente(nome, cpf);
-                    Conta conta = new ContaCorrente(numero, cliente);
+                        Cliente cliente = new Cliente(nome, cpf);
+                        Conta conta = new ContaCorrente(numero, cliente);
 
-                    bancoService.criarConta(conta);
+                        bancoService.criarConta(conta);
 
-                    System.out.println("Conta criada com sucesso!");
+                        System.out.println("Conta criada com sucesso!");
+                    } catch(IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 case 2 -> {
