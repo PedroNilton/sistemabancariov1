@@ -1,8 +1,10 @@
 # Sistema Bancário em Java
 
+[![Java CI](https://github.com/PedroNilton/sistemabancariov1/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/PedroNilton/sistemabancariov1/actions/workflows/ci.yml)
+
 Projeto educacional de linha de comando para praticar orientação a objetos, regras bancárias, exceções e persistência em arquivo.
 
-> **Status:** projeto de estudo em revisão. A estrutura principal está presente, mas alguns pontos ainda precisam ser reconciliados antes de uma versão estável.
+> **Status:** projeto educacional funcional, com build Maven e testes das operações bancárias principais.
 
 ## Funcionalidades planejadas
 
@@ -38,9 +40,19 @@ src/
 ### Pré-requisitos
 
 - JDK 17 ou superior
-- Uma IDE Java ou o compilador `javac`
+- Maven 3.9 ou superior
 
-O projeto ainda não possui Maven ou Gradle. A execução é feita a partir de `src/Main.java` após a compilação das classes do diretório `src/`.
+Na raiz do repositório, compile e execute os testes:
+
+```bash
+mvn clean verify
+```
+
+Depois, execute o menu de linha de comando:
+
+```bash
+java -cp target/classes Main
+```
 
 ## Dados de exemplo
 
@@ -48,11 +60,7 @@ O arquivo `contas.txt` contém apenas registros fictícios usados para testar a 
 
 ## Próximos passos
 
-- Corrigir inconsistências entre o menu e a camada de serviço
-- Remover arquivos compilados do versionamento
-- Adicionar `.gitignore` para arquivos da IDE e de build
-- Adotar Maven ou Gradle
-- Criar testes para depósitos, saques e transferências
+- Ampliar os testes para persistência e leitura de dados
 - Substituir `double` por `BigDecimal` para representar valores monetários
 
 ## Aviso

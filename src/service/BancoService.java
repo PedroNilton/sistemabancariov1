@@ -1,8 +1,6 @@
 package service;
 
-import model.Cliente;
 import model.Conta;
-import model.ContaCorrente;
 import repository.ContaRepository;
 import exception.ContaNaoEncontradaException;
 
@@ -18,16 +16,21 @@ public class BancoService {
         this.contas = repository.carregar();
     }
 
-    public Conta criarConta(Cliente cliente) {
+    public Conta criarConta(Conta conta) {
 
-        if (cpfJaExiste(cliente.getCpf())) {
+        if (conta == null) {
+            throw new IllegalArgumentException("Conta é obrigatória.");
+        }
+
+        if (contas.containsKey(conta.getNumero())) {
+            throw new IllegalArgumentException("Número da conta já cadastrado.");
+        }
+
+        if (cpfJaExiste(conta.getCliente().getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado.");
         }
 
-        String numero = String.valueOf(sequencia++);
-        Conta conta = new ContaCorrente(numero, cliente);
-
-        contas.put(numero, conta);
+        contas.put(conta.getNumero(), conta);
 
         return conta;
     }
